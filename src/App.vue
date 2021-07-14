@@ -2,7 +2,7 @@
 
   <div id="app">
     <Header />
-    <Main />
+    <Main :albums="albums" />
   </div>
 
 </template>
@@ -14,6 +14,10 @@ import Main from "./components/Main.vue"
 
 export default {
   name: 'App',
+    components: {
+      Header,
+      Main,
+    },
 
   data: function() {
     return {
@@ -22,20 +26,16 @@ export default {
     }
   },
 
-  components: {
-    name: Header,
-    name: Main,
-  },
-
   // una volta importato axios, dobbiamo prenderlo in created
   created() {
     axios.get("https://flynn.boolean.careers/exercises/api/array/music").then((result) => {
-      this.albums = this.result.response
+      this.albums = result.data.response
     });
   }
 }
 </script>
 
 <style lang="scss">
+@import "./style/app.scss";
 
 </style>
