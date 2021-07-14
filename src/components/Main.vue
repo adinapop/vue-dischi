@@ -2,16 +2,15 @@
     <main>
         <div class="container">
             <div class="row">
-                <div>
-                    <Album 
-                        v-for="(album, index) in albums"
-                        :key="index"
-                        :poster="album.poster"
-                        :title="album.title"
-                        :author="album.author"
-                        :year="album.year"
-                    />
-                </div>
+                <Album 
+                    class="col-2 .justify-content-center"
+                    v-for="(album, index) in albums"
+                    :key="index"
+                    :poster="album.poster"
+                    :title="album.title"
+                    :author="album.author"
+                    :year="album.year"
+                />
             </div>
         </div>
     </main>
@@ -34,5 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.row {
+    padding-top: 72px;
+}
 </style>

@@ -37,5 +37,6 @@ export default {
 
 <style lang="scss">
 @import "./style/app.scss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 </style>

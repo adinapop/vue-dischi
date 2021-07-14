@@ -1,10 +1,11 @@
 @import "colors";
 
-header {
+* {font-family: 'Montserrat', sans-serif;}
+
+header, .album-container {
     background: $bg-color;
 }
 
 main {
     background: $bg-main;
-    color: $color-album-title;
 }
