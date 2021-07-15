@@ -1,8 +1,11 @@
 <template>
 
   <div id="app">
-    <Header />
-    <Main :selectGenre="selectGenre" :albums="albums" />
+    <Header @select="searchAlbum"/>
+
+    <Main :albums="getFilteredGenreAlbums" 
+          :inputSelectGenre="inputSelectGenre" />
+
     <Loader v-if="albums.length == 0"/>
   </div>
 
@@ -24,19 +27,55 @@ export default {
 
   data: function() {
     return {
-      // creo array vuoto che sarà popolato dal data che arriva dalla library axios
       albums: [],
-      selectGenre: "",
+      inputSelectGenre: "",
+      // albumGenre: "",
+    }
+  },
+  
+  created() {
+    axios.get("https://flynn.boolean.careers/exercises/api/array/music").then((result) => {
+      this.albums = result.data.response;
+      this.searchAlbum('')
+      });
+  },
+
+  computed: {
+    // function per filtrare in base al genre
+    getFilteredGenreAlbums() {
+
+        return this.albums.filter((album) => {
+
+          if(this.inputSelectGenre === "all") {
+            return true;
+          }
+          //else
+          return album.genre.toLowerCase().includes(this.inputSelectGenre.toLowerCase());
+
+       // versione di Ottavio, da analizzare:
+       // return searchIn(this.inputSearch, [item.name, item.species, item.origin])
+      })
     }
   },
 
-  // una volta importato axios, dobbiamo prenderlo in created
-  created() {
-    axios.get("https://flynn.boolean.careers/exercises/api/array/music").then((result) => {
-      this.albums = result.data.response
-    });
-  },
+  methods: {
+    // con forEach non viene(?)
+    // prova: function() {
+    //     for(let x = 0; x < this.albums.length; x++) {
+    //     let pippo = this.albums[x];
+    //     this.albumGenre = pippo.genre;
+    //     console.log(this.albumGenre);
+    //   }
+    // }
+
+    // creo una function che mi salvi in una variabile quello che seleziona l'utente
+    searchAlbum(selectGenre) {
+      this.inputSelectGenre = selectGenre
+    }
+  }
+
 }
+
 </script>
 
 <style lang="scss">

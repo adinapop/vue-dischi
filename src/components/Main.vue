@@ -10,7 +10,7 @@
                     :title="album.title"
                     :author="album.author"
                     :year="album.year"
-                    :selectGenre="selectGenre"
+                    :inputSelectGenre="inputSelectGenre"
                 />
             </div>
         </div>
@@ -23,11 +23,12 @@ import Album from "./Album.vue"
 export default {
     name: "Main",
     components: {
-        Album
+        Album,
     },
     // qui si aspetta un array di oggetti dall'app
     props: {
         albums: Array,
+        inputSelectGenre: String,
     }
 }
 

@@ -6,18 +6,21 @@
                 <img src="../assets/spotify-logo.png" alt="Spotify Logo">
             </div>
 
-            <div class="select-genre">
+            <div class="select-container">
 
                 <select 
                     v-model="selectGenre">
-                    <option disabled value="">Please select one</option>
-                    <option> {{albumGenre}} </option>
+                    <option value="all">All</option>
+                    <option value="Rock">Rock</option>
+                    <option value="Pop">Pop</option>
+                    <option value="Jazz">Jazz</option>
+                    <option value="Metal">Metal</option>
                 </select>
 
-                <!-- per fare l'emit -->
-                <button>Search</button>
-
+                <button @click="$emit('select', selectGenre)">Search</button>
+            
             </div>
+
         </div>
 
     </header>
@@ -26,6 +29,11 @@
 <script>
 export default {
     name: "Header",
+    data() {
+        return {
+            selectGenre: "",
+        }
+    }
 }
 </script>
 
