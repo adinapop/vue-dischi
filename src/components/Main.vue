@@ -10,6 +10,7 @@
                     :title="album.title"
                     :author="album.author"
                     :year="album.year"
+                    :selectGenre="selectGenre"
                 />
             </div>
         </div>
