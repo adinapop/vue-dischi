@@ -1,7 +1,7 @@
 <template>
 
   <div id="app">
-    <Header @select="searchAlbum"/>
+    <Header @select="searchAlbum" :varGenre="varGenre"/>
 
     <Main :albums="getFilteredGenreAlbums" 
           :inputSelectGenre="inputSelectGenre" />
@@ -29,7 +29,7 @@ export default {
     return {
       albums: [],
       inputSelectGenre: "",
-      // albumGenre: "",
+      varGenre: [],
     }
   },
   
@@ -37,7 +37,9 @@ export default {
     axios.get("https://flynn.boolean.careers/exercises/api/array/music").then((result) => {
       this.albums = result.data.response;
       this.searchAlbum('')
+      this.pickGenre();
       });
+
   },
 
   computed: {
@@ -54,24 +56,29 @@ export default {
 
        // versione di Ottavio, da analizzare:
        // return searchIn(this.inputSearch, [item.name, item.species, item.origin])
-      })
-    }
+      });
+    },
   },
 
   methods: {
-    // con forEach non viene(?)
-    // prova: function() {
-    //     for(let x = 0; x < this.albums.length; x++) {
-    //     let pippo = this.albums[x];
-    //     this.albumGenre = pippo.genre;
-    //     console.log(this.albumGenre);
-    //   }
-    // }
+
+    // creo una function che mi salvi in una array i generi musicali
+    pickGenre: function() {
+      let arrayGenre = [];
+      for(let x = 0; x < this.albums.length; x++) {
+        let album = this.albums[x];
+        if(!arrayGenre.includes(album.genre)) {
+          arrayGenre.push(album.genre);
+        }
+      }
+      this.varGenre = arrayGenre;
+    },
 
     // creo una function che mi salvi in una variabile quello che seleziona l'utente
     searchAlbum(selectGenre) {
-      this.inputSelectGenre = selectGenre
-    }
+      this.inputSelectGenre = selectGenre;
+    },
+    
   }
 
 }

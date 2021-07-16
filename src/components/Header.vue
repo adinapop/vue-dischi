@@ -10,11 +10,13 @@
 
                 <select 
                     v-model="selectGenre">
+                    
                     <option value="all">All</option>
-                    <option value="Rock">Rock</option>
-                    <option value="Pop">Pop</option>
-                    <option value="Jazz">Jazz</option>
-                    <option value="Metal">Metal</option>
+                    <option v-for="(option, index) in varGenre"
+                        :key="index"
+                        :value="option">
+                        {{option}}</option>
+
                 </select>
 
                 <button @click="$emit('select', selectGenre)">Search</button>
@@ -29,6 +31,10 @@
 <script>
 export default {
     name: "Header",
+    props: {
+        varGenre: Array,
+    },
+
     data() {
         return {
             selectGenre: "",
